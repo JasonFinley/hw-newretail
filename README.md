@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+framework : Next.js
+套件 : Chakra UI, react-intersection-observer
 
 ## Getting Started
 
@@ -16,18 +17,23 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## FILES 說明
+/src/app/components/cardsList => 卡片樣式列表
+/src/app/components/filter => 篩選功能
+/src/app/components/header => header + 手機樣式 or 桌機樣式
+/src/app/components/inputDebounce => input防抖
+/src/app/components/tableList => Table樣式列表
+/src/app/context/device => 全域資料, 設定 table or mobile樣式
+/src/app/context/filter => 全域資料, 設定 過瀘資料
+/src/app/providers/chakra => chakra provider
+/src/app/view => 切換 table or mobile 樣式入口
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 功能說明
+篩選 : 類別, 關鍵字搜尋, 價格範圍, 庫存
+排序 : 價格升序、降序 or 不排序
+效能 : table 使用 Pagination, mobile 使用 Virtual Scroll
+響應式 : table => 商品以表格形式顯示，每行顯示一個商品,  mobile => 商品以卡片形式顯示，每行顯示最多兩個商品
+優化 : 篩選功能 使用 input防抖
 
 ## Deploy on Vercel
 
