@@ -23,7 +23,7 @@ const ViewProducts = ({ datas }) => {
         const minPrice = Math.min( price.min, price.max );
         const maxPrice = Math.max( price.min, price.max );
 
-        let datasFilter = datas.filter( item => {
+        const datasFilter = datas.filter( item => {
 
             const matchesName = name ? item.name.includes(name) : true;
             const matchesPrice = price ? item.price >= minPrice && item.price <= maxPrice : true;

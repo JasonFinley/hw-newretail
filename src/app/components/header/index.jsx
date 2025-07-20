@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 const Header = () => {
 
     const { device, setDevice } = useDeviceContext();
-    const [ curDevice, setCurDevice ] = useState( "mobile" );
+    const [ curDevice, setCurDevice ] = useState( "table" );
     const devices = [
         "mobile",
         "table",

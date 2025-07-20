@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Table,
   Thead,
@@ -10,64 +10,83 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Flex,
+  Button
 } from '@chakra-ui/react'
-import { useInView } from "react-intersection-observer";
-import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import InputDebounce from "../inputDebounce";
 
 const TRRenderIfVisible = ({ item, index }) => {
-    const { ref, inView } = useInView({
-        threshold: 0,
-        triggerOnce: false,
-    });
 
     return (
-        <Tr ref={ ref } 
+        <Tr
             height={"40px"}
         >
-            {inView ? (
-                <>
-                    <Td fontSize={"xl"}>{ item.name }</Td>
-                    <Td fontSize={"xl"}>{ item.category }</Td>
-                    <Td fontSize={"xl"} isNumeric>{ item.price }</Td>
-                    <Td fontSize={"xl"} textAlign={"center"}>{ item.inStock ? "有" : "無" }</Td>
-                </>
-            ) : (
-                <>
-                    <Td colSpan={4}/>
-                </>
-            )
-
-            }
-            
+            <Td fontSize={"xl"}>{ item.name }</Td>
+            <Td fontSize={"xl"}>{ item.category }</Td>
+            <Td fontSize={"xl"} isNumeric>{ item.price }</Td>
+            <Td fontSize={"xl"} textAlign={"center"}>{ item.inStock ? "有" : "無" }</Td>
         </Tr>
     );
 };
 
 const TableList = ({ datas }) => {
 
+    const pageSize = 10;
     const keyCounter = new Map();
-    const [priceSortCount, setPriceSortCount] = useState(0);
+    const [ priceSortCount, setPriceSortCount ] = useState(0);
 
-    const tableList = useMemo( () => {
+    const [ pageIndex, setPageIndex ] = useState(0);
+    const [ gotoInput, setGotoInput ] = useState("1");
 
+    const parseList = useMemo( () => {
+
+        let baseDatas;
         if( priceSortCount % 3 === 1 ){
-
-            return [...datas].sort( (a, b) => a.price - b.price );
-
+            baseDatas = [...datas].sort( (a, b) => a.price - b.price );
         }else if( priceSortCount % 3 === 2 ){
-
-            return [...datas].sort( (a, b) => b.price - a.price );
-            
+            baseDatas = [...datas].sort( (a, b) => b.price - a.price );
+        }else{
+            baseDatas = datas;
         }
 
-        return datas;
+        const totalPage = Math.ceil(baseDatas.length / pageSize);
 
-    }, [ datas, priceSortCount ] );
+        const start = pageIndex * pageSize;
+        const curPageDatas = baseDatas.slice(start, start + pageSize);
+        return {
+            totalPage,
+            curPageDatas
+        }
+
+    }, [ datas, priceSortCount, pageIndex ] );
 
     const handleSortPrice = () => {
+        setPageIndex(0);
         setPriceSortCount( priceSortCount + 1 );
     }
-    
+
+    const handleOnChangeGotoPage = ( e ) => {
+
+        const rawValue = e.target.value.trim();
+        if (rawValue === '') {
+            setGotoInput("");
+            return;
+        }
+
+        const num = Number(rawValue);
+        if (Number.isNaN(num)) return;
+
+        const pageNum = Math.round(num);
+        handleGotoNextPage( pageNum );
+    }
+
+    const handleGotoNextPage = ( pageNum ) => {
+        const clamped = Math.min( Math.max( pageNum, 1 ), parseList.totalPage );
+        setGotoInput( clamped.toString() );
+        setPageIndex( clamped - 1 );
+    }
+
     return (
         <>
         <TableContainer>
@@ -110,7 +129,7 @@ const TableList = ({ datas }) => {
                 </Thead>
                 <Tbody>
                     {
-                        tableList.map( ( item, index ) => {
+                        parseList.curPageDatas.map( ( item, index ) => {
 
                             const count = keyCounter.get( item.name ) || 0 ;
                             const key = `${item.name}-${count}`;
@@ -126,6 +145,37 @@ const TableList = ({ datas }) => {
                     }
                 </Tbody>
             </Table>
+            <Flex
+                fontSize={"xl"}
+                height={"44px"}
+                alignItems={"center"}
+                justifyContent={"space-around"}
+            >
+                <Button
+                    fontSize={"3xl"}
+                    disabled={ pageIndex <= 0 ? true : false }
+                    onClick={ () => { handleGotoNextPage( pageIndex - 1 ) } }
+                > <ChevronLeftIcon/> </Button>
+                <Flex>
+                    <input
+                        type="number"
+                        value={ gotoInput }
+                        style={{
+                            width: "72px",
+                            borderWidth: "2px",
+                            borderColor: "black",
+                            marginRight: "4px"
+                        }}
+                        onChange={ handleOnChangeGotoPage }
+                    />
+                    { ` / ${parseList.totalPage}` }
+                </Flex>
+                <Button
+                    fontSize={"3xl"}
+                    disabled={ pageIndex >= parseList.totalPage ? true : false }
+                    onClick={ () => { handleGotoNextPage( pageIndex + 1 ) } }
+                > <ChevronRightIcon/> </Button>
+            </Flex>
         </TableContainer>
         </>
     )

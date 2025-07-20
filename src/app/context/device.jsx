@@ -3,7 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 const DeviceContext = createContext({
-    device: "mobile",
+    device: "table",
     setDevice: null,
 });
 
@@ -11,7 +11,7 @@ export const useDeviceContext = () => { return useContext( DeviceContext ) }
 
 const ContextDevice = ({ children }) => {
 
-    const [ device, setDevice ] = useState("mobile");
+    const [ device, setDevice ] = useState("table");
 
     return (
     <DeviceContext.Provider value={{
