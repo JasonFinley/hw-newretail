@@ -18,7 +18,10 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## FILES 說明
-- /src/app/components/cardsList => 卡片樣式列表
+- /src/app/components/cardsList/cardstyle => 卡片樣式
+- /src/app/components/cardsList/index => 手機卡片列表入口
+- /src/app/components/cardsList/infiniteCards => 卡片 infinite 模式 列表
+- /src/app/components/cardsList/virtualCards => 卡片 virtual 模式 列表
 - /src/app/components/filter => 篩選功能
 - /src/app/components/header => header + 手機樣式 or 桌機樣式
 - /src/app/components/inputDebounce => input防抖
