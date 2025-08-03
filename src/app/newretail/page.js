@@ -1,7 +1,7 @@
-import Header from "./components/header";
-import Filter from "./components/filter";
 import products from '/public/items.json'
-import ViewProducts from "./view";
+import Header from "../components/header";
+import Filter from "../components/filter/index_newretail";
+import ViewProducts from '../view/index_newretail';
 
 export default async function Home() {
 

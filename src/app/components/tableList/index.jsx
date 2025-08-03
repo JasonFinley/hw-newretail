@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Table,
   Thead,
@@ -14,7 +14,6 @@ import {
   Button
 } from '@chakra-ui/react'
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import InputDebounce from "../inputDebounce";
 
 const TRRenderIfVisible = ({ item, index }) => {
 
@@ -83,8 +82,9 @@ const TableList = ({ datas }) => {
 
     const handleGotoNextPage = ( pageNum ) => {
         const clamped = Math.min( Math.max( pageNum, 1 ), parseList.totalPage );
+        console.log( pageNum, clamped );
         setGotoInput( clamped.toString() );
-        setPageIndex( clamped - 1 );
+        setPageIndex( clamped );
     }
 
     return (
@@ -153,7 +153,7 @@ const TableList = ({ datas }) => {
             >
                 <Button
                     fontSize={"3xl"}
-                    disabled={ pageIndex <= 0 ? true : false }
+                    disabled={ pageIndex <= 1 ? true : false }
                     onClick={ () => { handleGotoNextPage( pageIndex - 1 ) } }
                 > <ChevronLeftIcon/> </Button>
                 <Flex>

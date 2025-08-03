@@ -18,10 +18,22 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## FILES 說明
+- for knsh
+- /src/app/components/cardsgrid/cardstyle => 卡片樣式
+- /src/app/components/cardsgrid/index => 手機卡片列表入口
+- /src/app/components/cardsgrid/infiniteCards => 卡片 infinite 模式
+- /src/app/components/cardsgrid/virtualCards => 卡片 virtual 模式
+- /src/app/view/index_knsh => knsh 切換 table or mobile 樣式入口
+- /src/app/knsh/page => knsh 入口
+
+- for newretail
 - /src/app/components/cardsList/cardstyle => 卡片樣式
 - /src/app/components/cardsList/index => 手機卡片列表入口
 - /src/app/components/cardsList/infiniteCards => 卡片 infinite 模式 列表
 - /src/app/components/cardsList/virtualCards => 卡片 virtual 模式 列表
+- /src/app/view/index_newretail => newretail 切換 table or mobile 樣式入口
+- /src/app/newretail/page => newretail 入口
+
 - /src/app/components/filter => 篩選功能
 - /src/app/components/header => header + 手機樣式 or 桌機樣式
 - /src/app/components/inputDebounce => input防抖
@@ -29,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - /src/app/context/device => 全域資料, 設定 table or mobile樣式
 - /src/app/context/filter => 全域資料, 設定 過瀘資料
 - /src/app/providers/chakra => chakra provider
-- /src/app/view => 切換 table or mobile 樣式入口
+
 
 ## 功能說明
 - 篩選 : 類別, 關鍵字搜尋, 價格範圍, 庫存
@@ -41,4 +53,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Deploy on Vercel
 
 已部屬上 Vercel
-[ HW NEWRETAIL ](https://hw-newretail.vercel.app/)
+[ HW NEWRETAIL ](https://hw-newretail.vercel.app/newretail)
+[ HW KNSH ](https://hw-newretail.vercel.app/knsh)

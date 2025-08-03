@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "HW-Newretail",
-  description: "Generated HW-Newretail by create next app",
+  title: "HomeWork",
+  description: "Generated HomeWork by create next app",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-Hant" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ProviderChakra>
           <ContextDevice>

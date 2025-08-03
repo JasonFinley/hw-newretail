@@ -28,7 +28,7 @@ const Header = () => {
         <div style={{
             display: "flex"
         }}>
-            <h1 className="header">Newretail Homework</h1>
+            <h1 className="header">Homework</h1>
             <button
                 style={{
                     width: "80px",
